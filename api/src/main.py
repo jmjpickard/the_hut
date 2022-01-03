@@ -1,11 +1,29 @@
-from fastapi import FastAPI
-from fastapi.encoders import jsonable_encoder
+import requests
+
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
 from src.config import get_config
 from src.logger import logger
 
+from . import crud, models, schemas
+from .database import SessionLocal, engine
+
+models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI(host='0.0.0.0', port=80, debug=True)
+
+# Dependency
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 origins = [
     "*"
@@ -20,7 +38,69 @@ app.add_middleware(
 )
 
 
-@app.get("/ping")
+@app.get("/")
 async def root():
     logger.info('app runnning')
     return {"message": "pong"}
+
+
+@app.post("/createBooking/", response_model=schemas.BookingBase)
+def create_user(booking: schemas.BookingCreate, db: Session = Depends(get_db)):
+    logger.info({"message": f"creating user {booking}"})
+    return crud.create_user(db=db, booking=booking)
+
+
+@app.get("/readBookings")
+async def read_bookings():
+    logger.info('reading bookings')
+    return {"message": "read"}
+
+
+@app.put("/updateBooking")
+async def update_booking():
+    logger.info('update booking')
+    return {"message": "update"}
+
+
+@app.delete("/deleteBooking")
+async def delete_booking():
+    logger.info('delete booking')
+    return {"message": "delete"}
+
+
+class LoginBody(BaseModel):
+    email: str
+    password: str
+
+
+@app.post("/login")
+async def resolve_login(login: LoginBody):
+    logger.info(f'User {login.email} logged in')
+    config = get_config()
+
+    headers = {
+        "content-type": "application/x-www-form-urlencoded",
+    }
+
+    data = {
+        "grant_type": "password",
+        "username": login.email,
+        "password": login.password,
+        "audience": config['auth_audience'],
+        "scope": "openid",
+        "client_id": config["auth_client_id"],
+        "client_secret": config["auth_client_secret"],
+    }
+
+    url = f'{config["auth_domain"]}/oauth/token'
+    res = requests.post(url, headers=headers, data=data)
+
+    json_response = res.json()
+
+    if res.status_code == 200 and json_response["access_token"]:
+        return {
+            "accessToken": json_response["access_token"],
+            "idToken": json_response["id_token"],
+        }
+
+    raise Exception(f"Failed login: {json_response['error_description']}")
