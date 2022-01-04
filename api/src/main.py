@@ -1,4 +1,5 @@
 import requests
+from typing import List
 
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -45,27 +46,30 @@ async def root():
 
 
 @app.post("/createBooking/", response_model=schemas.BookingBase)
-def create_user(booking: schemas.BookingCreate, db: Session = Depends(get_db)):
-    logger.info({"message": f"creating user {booking}"})
+async def create_user(booking: schemas.BookingCreate, db: Session = Depends(get_db)):
+    logger.info({"message": f"creating booking {booking}"})
     return crud.create_booking(db=db, booking=booking)
 
 
-@app.get("/readBookings")
-async def read_bookings():
+@app.get("/readBookings", response_model=List[schemas.BookingBase])
+async def read_bookings(db: Session = Depends(get_db)):
     logger.info('reading bookings')
-    return {"message": "read"}
+    bookings = crud.read_bookings(db=db)
+    return bookings
 
 
-@app.put("/updateBooking")
-async def update_booking():
+@app.put("/updateBooking", response_model=schemas.BookingBase)
+async def update_booking(old_booking: schemas.BookingCreate,
+                         new_booking: schemas.BookingCreate,
+                         db: Session = Depends(get_db)):
     logger.info('update booking')
-    return {"message": "update"}
+    return crud.update_booking(db=db, old_booking=old_booking, new_booking=new_booking)
 
 
-@app.delete("/deleteBooking")
-async def delete_booking():
+@app.delete("/deleteBooking", response_model=schemas.BookingBase)
+async def delete_booking(booking: schemas.BookingCreate, db: Session = Depends(get_db)):
     logger.info('delete booking')
-    return {"message": "delete"}
+    return crud.delete_booking(db=db, booking=booking)
 
 
 @app.post("/login")
