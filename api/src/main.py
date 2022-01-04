@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 from src.config import get_config
 from src.logger import logger
 
-from . import crud, models, schemas
-from .database import SessionLocal, engine
+from src import crud, models, schemas
+from src.database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -47,7 +47,7 @@ async def root():
 @app.post("/createBooking/", response_model=schemas.BookingBase)
 def create_user(booking: schemas.BookingCreate, db: Session = Depends(get_db)):
     logger.info({"message": f"creating user {booking}"})
-    return crud.create_user(db=db, booking=booking)
+    return crud.create_booking(db=db, booking=booking)
 
 
 @app.get("/readBookings")
@@ -68,13 +68,8 @@ async def delete_booking():
     return {"message": "delete"}
 
 
-class LoginBody(BaseModel):
-    email: str
-    password: str
-
-
 @app.post("/login")
-async def resolve_login(login: LoginBody):
+async def resolve_login(login: schemas.LoginBody):
     logger.info(f'User {login.email} logged in')
     config = get_config()
 

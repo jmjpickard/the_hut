@@ -7,5 +7,6 @@ def get_config():
         "auth_client_secret": os.environ["AUTH0_CLIENT_SECRET"],
         "auth_domain": os.environ["AUTH0_DOMAIN"],
         "auth_audience": os.environ["AUTH0_AUDIENCE"],
-        "auth_database": os.environ["AUTH0_DATABASE"]
+        "auth_database": os.environ["AUTH0_DATABASE"],
+        "postgres_url": os.environ["DATABASE_URL"]
     }

@@ -10,6 +10,14 @@ class BookingBase(BaseModel):
     end_date: datetime
     approved: bool
 
+    class Config:
+        orm_mode = True
+
 
 class BookingCreate(BookingBase):
     pass
+
+
+class LoginBody(BaseModel):
+    email: str
+    password: str
