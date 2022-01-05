@@ -1,6 +1,6 @@
 // import { useState } from "react";
 import Dialog, { DialogProps } from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
+import { Login } from "./Login";
 
 type Props = DialogProps & {
   title: string;
@@ -8,7 +8,7 @@ type Props = DialogProps & {
 
 // ✔️ create the dialog you want to use
 export const SignInModal: React.FC<Props> = ({ title, ...props }) => (
-  <Dialog {...props}>
-    <DialogTitle>{title}</DialogTitle>
+  <Dialog {...props} fullWidth maxWidth="sm">
+    <Login message={title} />
   </Dialog>
 );

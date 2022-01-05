@@ -15,7 +15,6 @@ interface FormValues {
 interface OtherProps {
   message: string;
   initialEmail?: string;
-  setLoginState: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const styles = {
@@ -30,7 +29,7 @@ const styles = {
     color: "red",
   },
   button: {
-    backgroundColor: "#26A5B8",
+    backgroundColor: "#6AAEB2",
     color: "white",
     fontWeight: "bold" as "bold",
     height: "40px",
@@ -40,6 +39,7 @@ const styles = {
   },
   header: {
     textAlign: "center" as "center",
+    color: "#6AAEB2",
   },
   bottomRow: {
     display: "flex",
@@ -115,14 +115,6 @@ const InnerForm = (props: OtherProps) => {
       <Button style={styles.button} variant="contained" fullWidth type="submit">
         Submit
       </Button>
-      <div style={styles.bottomRow}>
-        <span style={styles.link} onClick={() => props.setLoginState("signup")}>
-          Create an account
-        </span>
-        <span style={styles.link} onClick={() => props.setLoginState("forgot")}>
-          Forgotten password?
-        </span>
-      </div>
     </form>
   );
 };

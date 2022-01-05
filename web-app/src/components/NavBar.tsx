@@ -52,8 +52,7 @@ export const NavBar = ({ view }: ViewProps) => {
         <Button
           style={styles.buttonColor}
           onClick={() => {
-            console.log("clicked");
-            showModal(SignInModal, { title: "Simple Dialog" });
+            showModal(SignInModal, { title: "Login" });
           }}
         >
           Login
