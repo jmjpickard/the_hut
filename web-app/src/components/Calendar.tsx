@@ -5,6 +5,7 @@ import Card from "@mui/material/Card";
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import "../App.css";
 
 const localizer = momentLocalizer(moment);
 
@@ -63,7 +64,7 @@ const barColor = {
 export const CalendarCard = () => (
   <Box
     sx={{
-      width: "95vw",
+      width: "70vw",
       margin: "auto",
       opacity: 0.92,
       marginTop: "5vh",
@@ -76,7 +77,7 @@ export const CalendarCard = () => (
         startAccessor="start"
         endAccessor="end"
         views={["month"]}
-        style={{ height: 500, width: "95vw", padding: "25px", margin: "auto" }}
+        style={{ height: 500, width: "70vw", padding: "25px", margin: "auto" }}
         eventPropGetter={(event) => {
           let newStyle = {
             backgroundColor: "lightgrey",

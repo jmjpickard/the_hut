@@ -46,6 +46,20 @@
   box-shadow: 5px 5px 10px 8px grey;
 }
 
+.rbc-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+}
+
+.rbc-toolbar .rbc-toolbar-label {
+  font-weight: bold;
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  margin-left: auto; 
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
