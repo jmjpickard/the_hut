@@ -4,6 +4,7 @@ import WebFont from "webfontloader";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useModal } from "mui-modal-provider";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { SignInModal } from "./SignIn";
 import { ViewProps } from "../App";
@@ -11,6 +12,9 @@ import { ViewProps } from "../App";
 const styles = {
   buttonColor: {
     color: "#6AAEB2",
+    border: "thin solid #6AAEB2",
+    borderRadius: "10px 10px 10px",
+    padding: "8px",
     // marginTop: "25px",
     // marginRight: "auto",
     position: "absolute" as "absolute",
@@ -18,7 +22,7 @@ const styles = {
     right: 35,
     fontFamily: "Gill Sans",
     cursor: "pointer",
-    fontSize: 25,
+    fontSize: 20,
   },
   navText: {
     color: "#6AAEB2",
@@ -50,6 +54,8 @@ export const NavBar = ({ view }: ViewProps) => {
       <span style={styles.navText}>THE HUT</span>
       {view === "home" ? (
         <Button
+          variant="outlined"
+          endIcon={<ArrowForwardIosIcon />}
           style={styles.buttonColor}
           onClick={() => {
             showModal(SignInModal, { title: "Login" });

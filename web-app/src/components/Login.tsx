@@ -115,6 +115,11 @@ const InnerForm = (props: OtherProps) => {
       <Button style={styles.button} variant="contained" fullWidth type="submit">
         Submit
       </Button>
+      <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+        <div style={{ fontSize: 12, color: "#6AAEB2" }}>
+          If you have forgotten your password, you are a numpty. But ask Jack.
+        </div>
+      </Box>
     </form>
   );
 };

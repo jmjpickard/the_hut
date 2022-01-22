@@ -3,19 +3,24 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
-import MobileDatePicker from "@mui/lab/MobileDatePicker";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import Box from "@mui/material/Box";
 // Shape of form values
 interface FormValues {
-  email: string;
-  password: string;
+  startDate: Date;
+  endDate: Date;
+  title: string;
+  description: string;
+  owner: string;
+  approved: boolean;
 }
 
 interface OtherProps {
   message: string;
-  initialEmail?: string;
 }
 
 const styles = {
@@ -58,26 +63,31 @@ const styles = {
 const InnerForm = (props: OtherProps) => {
   const formik = useFormik({
     initialValues: {
-      email: props.initialEmail || "",
-      password: "",
+      startDate: new Date("2022-03-01"),
+      endDate: new Date("2022-03-30"),
+      title: "",
+      description: "",
+      owner: "",
+      approved: false,
     },
     validationSchema: BookingValidation,
 
     onSubmit: (values: FormValues) => {
-      return fetch(`${process.env.REACT_APP_API_URL!}/login`, {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          localStorage.setItem("token", data.accessToken);
-          localStorage.setItem("idToken", data.idToken);
-          window.location.reload();
-        });
+      console.log(values);
+      // return fetch(`${process.env.REACT_APP_API_URL!}/login`, {
+      //   method: "POST",
+      //   body: JSON.stringify(values),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Accept: "application/json",
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     localStorage.setItem("token", data.accessToken);
+      //     localStorage.setItem("idToken", data.idToken);
+      //     window.location.reload();
+      //   });
     },
   });
 
@@ -86,31 +96,68 @@ const InnerForm = (props: OtherProps) => {
   return (
     <form onSubmit={formik.handleSubmit} style={styles.form}>
       <h1 style={styles.header}>{message}</h1>
+      <Box sx={{ display: "flex", alignItems: "flex-end", gap: 5 }}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            id="startDate"
+            name="startDate"
+            label="Start Date"
+            inputVariant="outlined"
+            format="dd MMM yyyy"
+            clearable
+            value={formik.values.startDate}
+            onChange={(val) => formik.setFieldValue("startDate", val)}
+            KeyboardButtonProps={{
+              "aria-label": "change date",
+            }}
+            error={formik.touched.startDate && Boolean(formik.errors.startDate)}
+            helperText={formik.touched.startDate && formik.errors.startDate}
+          />
+        </MuiPickersUtilsProvider>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            id="endDate"
+            name="endDate"
+            label="End Date"
+            inputVariant="outlined"
+            format="dd MMM yyyy"
+            clearable
+            value={formik.values.endDate}
+            onChange={(val) => formik.setFieldValue("endDate", val)}
+            KeyboardButtonProps={{
+              "aria-label": "change date",
+            }}
+            error={formik.touched.endDate && Boolean(formik.errors.endDate)}
+            helperText={formik.touched.endDate && formik.errors.endDate}
+          />
+        </MuiPickersUtilsProvider>
+      </Box>
       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-        <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
-          id="email"
-          name="email"
-          label="Email"
-          value={formik.values.email}
+          id="title"
+          name="title"
+          label="Title"
+          type="text"
+          value={formik.values.title}
           onChange={formik.handleChange}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
+          error={formik.touched.title && Boolean(formik.errors.title)}
+          helperText={formik.touched.title && formik.errors.title}
         />
       </Box>
       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-        <VpnKeyIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
         <TextField
           fullWidth
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
-          value={formik.values.password}
+          id="description"
+          name="description"
+          label="Description"
+          type="text"
+          value={formik.values.description}
           onChange={formik.handleChange}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
+          error={
+            formik.touched.description && Boolean(formik.errors.description)
+          }
+          helperText={formik.touched.description && formik.errors.description}
         />
       </Box>
       <Button style={styles.button} variant="contained" fullWidth type="submit">
@@ -121,13 +168,17 @@ const InnerForm = (props: OtherProps) => {
 };
 
 const BookingValidation = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string()
-    .required("Please Enter your password")
-    .matches(
-      /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+  startDate: Yup.date().nullable().required(),
+  endDate: Yup.date()
+    .nullable()
+    .required()
+    .when(
+      "startDate",
+      (startDate, yup) =>
+        startDate && yup.min(startDate, "End time cannot be before start time")
     ),
+  title: Yup.string().required(),
+  description: Yup.string().required(),
 });
 
 // Wrap our form with the withFormik HoC
