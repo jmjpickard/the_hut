@@ -13,7 +13,7 @@ jobs:
       working-directory: ./api
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       HEROKU_EMAIL: jack.pickard@hotmail.com
-      HEROKU_WEB_APP_NAME: the-hut-bracklesham
+      HEROKU_API_NAME: the-hut-bracklesham-api
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master
@@ -39,3 +39,36 @@ jobs:
           # By default, this argument is set to "web".
           # For more information look at https://devcenter.heroku.com/articles/process-model
           process_type: web
+  # build-app:
+  #   name: Build App
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     working-directory: ./web-app
+  #     HEROKU_EMAIL: jack.pickard@hotmail.com
+  #     HEROKU_WEB_APP_NAME: the-hut-bracklesham-api
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@master
+
+  #    - name: Build, Push and Release web app to Heroku # Your custom step name
+  #       uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
+  #       with:
+  #         # Below you must provide variables for your Heroku app.
+  #         email: ${{ env.HEROKU_EMAIL }}
+  #         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+  #         heroku_app_name: ${{ env.HEROKU_WEB_APP_NAME }}
+  #         # (Optional, default: "./")
+  #         # Dockerfile directory.
+  #         # For example, if you have a Dockerfile in the root of your project, leave it as follows:
+  #         dockerfile_directory: ./
+  #         # (Optional, default: "Dockerfile")
+  #         # Dockerfile name.
+  #         dockerfile_name: Dockerfile
+  #         # (Optional, default: "")
+  #         # Additional options of docker build command.
+  #         docker_options: "--no-cache"
+  #         # (Optional, default: "web")
+  #         # Select the process type for which you want the docker container to be uploaded.
+  #         # By default, this argument is set to "web".
+  #         # For more information look at https://devcenter.heroku.com/articles/process-model
+  #         process_type: web
