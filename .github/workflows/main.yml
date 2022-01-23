@@ -23,14 +23,14 @@ jobs:
           appdir: "./api/"
           usedocker: true
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
-          AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
-          AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
-          AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
-          AUTH0_DATABASE: ${{ secrets.AUTH0_DATABASE }}
-          HEROKU_EMAIL: jack.pickard@hotmail.com
-          HEROKU_API_NAME: the-hut-bracklesham-api
+          HD_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          HD_AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
+          HD_AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+          HD_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
+          HD_AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
+          HD_AUTH0_DATABASE: ${{ secrets.AUTH0_DATABASE }}
+          HD_HEROKU_EMAIL: jack.pickard@hotmail.com
+          HD_HEROKU_API_NAME: the-hut-bracklesham-api
 
   # build-app:
   #   name: Build App
