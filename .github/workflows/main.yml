@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: ./api
+      HEROKU_EMAIL: jack.pickard@hotmail.com
+      HEROKU_API_NAME: the-hut-bracklesham-api
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master
@@ -29,8 +31,6 @@ jobs:
           HD_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
           HD_AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
           HD_AUTH0_DATABASE: ${{ secrets.AUTH0_DATABASE }}
-          HD_HEROKU_EMAIL: jack.pickard@hotmail.com
-          HD_HEROKU_API_NAME: the-hut-bracklesham-api
 
   # build-app:
   #   name: Build App
