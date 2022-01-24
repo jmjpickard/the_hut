@@ -11,9 +11,18 @@ from src.logger import logger
 from src import crud, models, schemas
 from src.database import SessionLocal, engine
 
+import os
+ON_HEROKU = os.environ.get('ON_HEROKU')
+if ON_HEROKU:
+    # get the heroku port
+    # as per OP comments default is 17995
+    port = int(os.environ.get("PORT", 17995))
+else:
+    port = 8000
+
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(host='0.0.0.0', port=80, debug=True)
+app = FastAPI(host='0.0.0.0', port=port, debug=True)
 
 # Dependency
 

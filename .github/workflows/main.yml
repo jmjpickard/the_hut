@@ -31,6 +31,7 @@ jobs:
           HD_AUTH0_DOMAIN: ${{ secrets.AUTH0_DOMAIN }}
           HD_AUTH0_DATABASE: ${{ secrets.AUTH0_DATABASE }}
           HD_AUTH0_AUDIENCE: ${{ secrets.AUTH0_AUDIENCE }}
+          HD_ON_HEROKU: true
 
   # build-app:
   #   name: Build App
