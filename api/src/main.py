@@ -18,7 +18,7 @@ if ON_HEROKU:
     # as per OP comments default is 17995
     port = int(os.environ.get("PORT", 17995))
 else:
-    port = 8000
+    port = int(os.environ.get("PORT", 17995))
 
 models.Base.metadata.create_all(bind=engine)
 
