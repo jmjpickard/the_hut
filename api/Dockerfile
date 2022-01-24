@@ -17,8 +17,6 @@ RUN pip install pipenv
 COPY --from=base_image /app /app
 COPY ./src ./src
 
-EXPOSE 8000
-
 ENV PATH="/app/.venv/bin:$PATH" 
 
 CMD uvicorn src.main:app
