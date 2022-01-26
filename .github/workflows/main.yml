@@ -46,16 +46,16 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master
-      # - name: Use Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-      # - name: Install deps
-      #   working-directory: ${{env.working-directory}}
-      #   run: yarn
-      # - name: Build the project
-      #   working-directory: ${{env.working-directory}}
-      #   run: yarn build
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install deps
+        working-directory: ${{env.working-directory}}
+        run: yarn
+      - name: Build the project
+        working-directory: ${{env.working-directory}}
+        run: yarn build
       - name: Build, Push and Release React App to Heroku. # Your custom step name
         if: ${{github.ref == 'refs/heads/master'}}
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -63,7 +63,5 @@ jobs:
           heroku_email: ${{ env.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ env.HEROKU_API_NAME }}
-          appdir: "./web-app/"
-          usedocker: true
         env:
           HD_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
