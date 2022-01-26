@@ -36,6 +36,9 @@ jobs:
   build-app:
     name: Build App
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.18.1]
     env:
       working-directory: ./web-app
       HEROKU_EMAIL: jack.pickard@hotmail.com
@@ -43,6 +46,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Build, Push and Release React App to Heroku. # Your custom step name
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
