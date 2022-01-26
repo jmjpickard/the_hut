@@ -63,6 +63,6 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ env.HEROKU_API_NAME }}
           appdir: "./web-app/"
-          usedocker: false
+          usedocker: true
         env:
           HD_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
