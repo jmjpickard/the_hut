@@ -57,7 +57,6 @@ jobs:
         working-directory: ${{env.working-directory}}
         run: yarn build
       - name: Build, Push and Release React App to Heroku. # Your custom step name
-        if: ${{github.ref == 'refs/heads/master'}}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_email: ${{ env.HEROKU_EMAIL }}
