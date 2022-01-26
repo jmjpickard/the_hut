@@ -57,12 +57,11 @@ jobs:
         working-directory: ${{env.working-directory}}
         run: yarn build
       - name: Build, Push and Release React App to Heroku. # Your custom step name
+        if: ${{github.ref == 'refs/heads/master'}}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_email: ${{ env.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ env.HEROKU_API_NAME }}
-          appdir: "./web-app/"
-          usedocker: true
         env:
           HD_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
