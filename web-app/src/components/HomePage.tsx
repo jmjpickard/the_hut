@@ -11,13 +11,13 @@ import image8 from "../images/image8.jpg";
 import { ViewProps } from "../App";
 
 const fullShow = {
-  images: [image1, image2, image3, image4, image5, image6, image7, image8],
+  images: [image5, image4, image2, image8, image3, image6, image7, image1],
   duration: 5,
   transition: 2,
 };
 
 const calendarView = {
-  images: [image2],
+  images: [image5],
   duration: 100000,
   transition: 2,
 };

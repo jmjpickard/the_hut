@@ -10,14 +10,19 @@ export interface ViewProps {
 }
 
 function App() {
-  // const [pictures, setPictures] = useState(fullShow);
+  const token = localStorage.getItem("token");
+  const view = token ? "home" : "calendar";
   return (
     <>
       <ModalProvider>
         <NavBar view={"home"} />
-        <HomePage view={"home"} />
-        <CalendarCard />
-        <BottomBar />
+        <HomePage view={view} />
+        {token && (
+          <>
+            <CalendarCard />
+            <BottomBar />
+          </>
+        )}
       </ModalProvider>
     </>
   );

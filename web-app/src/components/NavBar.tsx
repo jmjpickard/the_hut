@@ -58,10 +58,17 @@ export const NavBar = ({ view }: ViewProps) => {
           endIcon={<ArrowForwardIosIcon />}
           style={styles.buttonColor}
           onClick={() => {
-            showModal(SignInModal, { title: "Login" });
+            const token = localStorage.getItem("token");
+            if (token) {
+              localStorage.removeItem("token");
+              localStorage.removeItem("idToken");
+              window.location.reload();
+            } else {
+              showModal(SignInModal, { title: "Login" });
+            }
           }}
         >
-          Login
+          {localStorage.getItem("token") ? "Sign out" : "Sign in"}
         </Button>
       ) : (
         <div></div>
