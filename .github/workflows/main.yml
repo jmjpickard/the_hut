@@ -66,3 +66,4 @@ jobs:
           appdir: "./web-app/"
         env:
           HD_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          HD_NODE_OPTIONS: --max_old_space_size=2560
