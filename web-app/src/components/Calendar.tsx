@@ -2,6 +2,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
+import { CalendarEvent } from "../App";
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -9,16 +10,7 @@ import "../App.css";
 
 const localizer = momentLocalizer(moment);
 
-interface Event {
-  allDay?: boolean | undefined;
-  title?: React.ReactNode | undefined;
-  start?: Date | undefined;
-  end?: Date | undefined;
-  resource?: any;
-  owner: "Jack" | "Charlie" | "Lily" | "M & D" | "Other";
-}
-
-const events: Event[] = [
+const events: CalendarEvent[] = [
   {
     title: "test event",
     start: moment("20220110", "YYYYMMDD").toDate(),

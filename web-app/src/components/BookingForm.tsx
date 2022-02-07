@@ -74,20 +74,20 @@ const InnerForm = (props: OtherProps) => {
 
     onSubmit: (values: FormValues) => {
       console.log(values);
-      // return fetch(`${process.env.REACT_APP_API_URL!}/login`, {
-      //   method: "POST",
-      //   body: JSON.stringify(values),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Accept: "application/json",
-      //   },
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     localStorage.setItem("token", data.accessToken);
-      //     localStorage.setItem("idToken", data.idToken);
-      //     window.location.reload();
-      //   });
+      return fetch(`${process.env.REACT_APP_API_URL!}/createBooking`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          localStorage.setItem("token", data.accessToken);
+          localStorage.setItem("idToken", data.idToken);
+          window.location.reload();
+        });
     },
   });
 
