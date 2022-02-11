@@ -10,21 +10,6 @@ import "../App.css";
 
 const localizer = momentLocalizer(moment);
 
-const events: CalendarEvent[] = [
-  {
-    title: "test event",
-    start: moment("20220110", "YYYYMMDD").toDate(),
-    end: moment("20220116", "YYYYMMDD").toDate(),
-    owner: "Jack",
-  },
-  {
-    title: "Weekend with team",
-    start: moment("20220127", "YYYYMMDD").toDate(),
-    end: moment("20220131", "YYYYMMDD").toDate(),
-    owner: "Charlie",
-  },
-];
-
 const barColor = {
   Jack: {
     background: "#8BBBCC",
@@ -53,39 +38,51 @@ const barColor = {
   },
 };
 
-export const CalendarCard = () => (
-  <Box
-    sx={{
-      width: "70vw",
-      margin: "auto",
-      opacity: 0.92,
-      marginTop: "5vh",
-    }}
-  >
-    <Card>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        views={["month"]}
-        style={{ height: 500, width: "70vw", padding: "25px", margin: "auto" }}
-        eventPropGetter={(event) => {
-          let newStyle = {
-            backgroundColor: "lightgrey",
-            border: "thin solid grey",
-            color: "white",
-            fontFamily: "Gill Sans",
-          };
-          newStyle.backgroundColor = barColor[event.owner].background;
-          newStyle.border = barColor[event.owner].border;
-          newStyle.color = barColor[event.owner].text;
-          return {
-            className: "",
-            style: newStyle,
-          };
-        }}
-      />
-    </Card>
-  </Box>
-);
+interface eventsProps {
+  events: CalendarEvent[] | undefined;
+}
+
+export const CalendarCard = ({ events }: eventsProps) => {
+  console.log(events);
+  return (
+    <Box
+      sx={{
+        width: "70vw",
+        margin: "auto",
+        opacity: 0.92,
+        marginTop: "5vh",
+      }}
+    >
+      <Card>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          views={["month"]}
+          style={{
+            height: 500,
+            width: "70vw",
+            padding: "25px",
+            margin: "auto",
+          }}
+          eventPropGetter={(event) => {
+            let newStyle = {
+              backgroundColor: "lightgrey",
+              border: "thin solid grey",
+              color: "white",
+              fontFamily: "Gill Sans",
+            };
+            newStyle.backgroundColor = barColor[event.owner].background;
+            newStyle.border = barColor[event.owner].border;
+            newStyle.color = barColor[event.owner].text;
+            return {
+              className: "",
+              style: newStyle,
+            };
+          }}
+        />
+      </Card>
+    </Box>
+  );
+};

@@ -74,7 +74,6 @@ const InnerForm = (props: OtherProps) => {
     validationSchema: BookingValidation,
 
     onSubmit: (values: FormValues) => {
-      console.log("submit");
       return fetch(`${process.env.REACT_APP_API_URL!}/createBooking`, {
         method: "POST",
         body: JSON.stringify(values),
@@ -85,8 +84,7 @@ const InnerForm = (props: OtherProps) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log({ data });
-          // window.location.reload();
+          window.location.reload();
         });
     },
   });

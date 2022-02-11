@@ -1,4 +1,5 @@
 // import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavBar } from "./components/NavBar";
 import { HomePage } from "./components/HomePage";
 import { CalendarCard } from "./components/Calendar";
@@ -16,26 +17,53 @@ export interface CalendarEvent {
   end?: Date | undefined;
   resource?: any;
   owner: "Jack" | "Charlie" | "Lily" | "M & D" | "Other";
+  description: string;
+  approved: boolean;
 }
 
-const getEvents = () => {
-  return fetch(`${process.env.REACT_APP_API_URL!}/readBookings`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
+interface ApiCalendarEvent {
+  start_date: Date;
+  end_date: Date;
+  title: string;
+  description: string;
+  owner: "Jack" | "Charlie" | "Lily" | "M & D" | "Other";
+  approved: boolean;
+}
+
+const convertToCalendarEvents = (events: ApiCalendarEvent[]) => {
+  if (events.length > 0) {
+    return events.map((event) => {
+      return {
+        start: event.start_date,
+        end: event.end_date,
+        owner: event.owner,
+        title: event.title,
+        description: event.description,
+        approved: event.approved,
+      };
     });
+  }
 };
 
 function App() {
+  const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
   const token = localStorage.getItem("token");
   const view = token ? "home" : "calendar";
-  console.log(getEvents());
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL!}/readBookings`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data: ApiCalendarEvent[]) => {
+        const events = convertToCalendarEvents(data);
+        setEvents(events);
+      });
+  }, []);
   return (
     <>
       <ModalProvider>
@@ -43,7 +71,7 @@ function App() {
         <HomePage view={view} />
         {token && (
           <>
-            <CalendarCard />
+            <CalendarCard events={events} />
             <BottomBar />
           </>
         )}
