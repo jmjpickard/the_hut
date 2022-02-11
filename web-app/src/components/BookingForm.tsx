@@ -11,8 +11,8 @@ import DateFnsUtils from "@date-io/date-fns";
 import Box from "@mui/material/Box";
 // Shape of form values
 interface FormValues {
-  startDate: Date;
-  endDate: Date;
+  start_date: Date;
+  end_date: Date;
   title: string;
   description: string;
   owner: string;
@@ -61,19 +61,20 @@ const styles = {
 
 // Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
 const InnerForm = (props: OtherProps) => {
+  // const userName = localStorage.getItem("userName") ?? "Jack";
   const formik = useFormik({
     initialValues: {
-      startDate: new Date("2022-03-01"),
-      endDate: new Date("2022-03-30"),
+      start_date: new Date("2022-03-01"),
+      end_date: new Date("2022-03-30"),
       title: "",
       description: "",
-      owner: "",
+      owner: "Jack",
       approved: false,
     },
     validationSchema: BookingValidation,
 
     onSubmit: (values: FormValues) => {
-      console.log(values);
+      console.log("submit");
       return fetch(`${process.env.REACT_APP_API_URL!}/createBooking`, {
         method: "POST",
         body: JSON.stringify(values),
@@ -84,9 +85,8 @@ const InnerForm = (props: OtherProps) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          localStorage.setItem("token", data.accessToken);
-          localStorage.setItem("idToken", data.idToken);
-          window.location.reload();
+          console.log({ data });
+          // window.location.reload();
         });
     },
   });
@@ -99,36 +99,45 @@ const InnerForm = (props: OtherProps) => {
       <Box sx={{ display: "flex", alignItems: "flex-end", gap: 5 }}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
-            id="startDate"
-            name="startDate"
+            id="start_date"
+            name="start_date"
             label="Start Date"
             inputVariant="outlined"
             format="dd MMM yyyy"
             clearable
-            value={formik.values.startDate}
-            onChange={(val) => formik.setFieldValue("startDate", val)}
+            value={formik.values.start_date}
+            onChange={(val) => {
+              const valDate = new Date(String(val)).toISOString();
+              formik.setFieldValue("start_date", valDate);
+            }}
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
-            error={formik.touched.startDate && Boolean(formik.errors.startDate)}
-            helperText={formik.touched.startDate && formik.errors.startDate}
+            error={
+              formik.touched.start_date && Boolean(formik.errors.start_date)
+            }
+            helperText={formik.touched.start_date && formik.errors.start_date}
           />
         </MuiPickersUtilsProvider>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
-            id="endDate"
-            name="endDate"
+            id="end_date"
+            name="end_date"
             label="End Date"
             inputVariant="outlined"
             format="dd MMM yyyy"
             clearable
-            value={formik.values.endDate}
-            onChange={(val) => formik.setFieldValue("endDate", val)}
+            value={formik.values.end_date}
+            onChange={(val) => {
+              const valDate = new Date(String(val)).toISOString();
+              console.log(valDate);
+              formik.setFieldValue("end_date", valDate);
+            }}
             KeyboardButtonProps={{
               "aria-label": "change date",
             }}
-            error={formik.touched.endDate && Boolean(formik.errors.endDate)}
-            helperText={formik.touched.endDate && formik.errors.endDate}
+            error={formik.touched.end_date && Boolean(formik.errors.end_date)}
+            helperText={formik.touched.end_date && formik.errors.end_date}
           />
         </MuiPickersUtilsProvider>
       </Box>
@@ -168,14 +177,15 @@ const InnerForm = (props: OtherProps) => {
 };
 
 const BookingValidation = Yup.object().shape({
-  startDate: Yup.date().nullable().required(),
-  endDate: Yup.date()
+  start_date: Yup.date().nullable().required(),
+  end_date: Yup.date()
     .nullable()
     .required()
     .when(
-      "startDate",
-      (startDate, yup) =>
-        startDate && yup.min(startDate, "End time cannot be before start time")
+      "start_date",
+      (start_date, yup) =>
+        start_date &&
+        yup.min(start_date, "End time cannot be before start time")
     ),
   title: Yup.string().required(),
   description: Yup.string().required(),

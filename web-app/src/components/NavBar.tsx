@@ -62,6 +62,7 @@ export const NavBar = ({ view }: ViewProps) => {
             if (token) {
               localStorage.removeItem("token");
               localStorage.removeItem("idToken");
+              localStorage.removeItem("userName");
               window.location.reload();
             } else {
               showModal(SignInModal, { title: "Login" });

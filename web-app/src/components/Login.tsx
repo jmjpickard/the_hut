@@ -8,7 +8,7 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import Box from "@mui/material/Box";
 // Shape of form values
 interface FormValues {
-  email: string;
+  email: "jack.pickard@hotmail.com";
   password: string;
 }
 
@@ -53,11 +53,15 @@ const styles = {
   },
 };
 
+const userLookup = {
+  "jack.pickard@hotmail.com": "Jack",
+};
+
 // Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
 const InnerForm = (props: OtherProps) => {
   const formik = useFormik({
     initialValues: {
-      email: props.initialEmail || "",
+      email: "jack.pickard@hotmail.com",
       password: "",
     },
     validationSchema: LoginValidation,
@@ -73,8 +77,10 @@ const InnerForm = (props: OtherProps) => {
       })
         .then((res) => res.json())
         .then((data) => {
+          const userEmail = values.email;
           localStorage.setItem("token", data.accessToken);
           localStorage.setItem("idToken", data.idToken);
+          localStorage.setItem("userName", userLookup[userEmail]);
           window.location.reload();
         });
     },
