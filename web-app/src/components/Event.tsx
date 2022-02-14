@@ -8,9 +8,14 @@ interface eventProps {
 
 export const Event = ({ event }: eventProps) => {
   let popoverClickRootClose = (
-    <Popover id="popover-trigger-click-root-close" style={{ zIndex: 10000 }}>
-      <strong>Holy guacamole!</strong> Check this info.
+    <Popover
+      id="popover-trigger-click-root-close"
+      style={{ zIndex: 10000, padding: 10, width: "400px" }}
+    >
       <strong>{event.title}</strong>
+      <span>{event.description}</span>
+      <span>From: {event.start}</span>
+      <span>To: {event.end}</span>
     </Popover>
   );
 
@@ -23,7 +28,7 @@ export const Event = ({ event }: eventProps) => {
           trigger="click"
           rootClose
           container={this}
-          placement="bottom"
+          placement="top"
           overlay={popoverClickRootClose}
         >
           <div>{event.title}</div>

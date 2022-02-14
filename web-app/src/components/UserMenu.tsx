@@ -79,7 +79,7 @@ export const UserMenu = () => {
           <ListItemIcon>
             <EventNoteIcon fontSize="small" />
           </ListItemIcon>
-          My bookings
+          My bookings (TBC)
         </MenuItem>
         <Divider />
         <MenuItem

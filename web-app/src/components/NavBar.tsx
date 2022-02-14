@@ -45,7 +45,7 @@ const styles = {
     backgroundColor: "#6AAEB2",
     textDecoration: "none",
     opacity: 0.9,
-    boxShadow: "1px 1px 1px 1px #E1E8ED",
+
     "&:hover": {
       border: "2pt solid #EF007A",
       boxShadow: "0px 0px 0px 0px #E1E8ED",
