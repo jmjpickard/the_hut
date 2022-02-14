@@ -11,14 +11,12 @@ import Logout from "@mui/icons-material/Logout";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 
 export const UserMenu = () => {
-  const [selected, setSelected] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    console.log(selected);
     setAnchorEl(null);
   };
   return (

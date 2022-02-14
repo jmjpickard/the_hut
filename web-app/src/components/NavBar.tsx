@@ -28,6 +28,7 @@ const styles = {
     fontSize: 100,
     fontFamily: "Gill Sans",
     letterSpacing: 45,
+    cursor: "pointer",
   },
   signInButton: {
     position: "absolute" as "absolute",
