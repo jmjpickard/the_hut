@@ -61,14 +61,14 @@ const styles = {
 
 // Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
 const InnerForm = (props: OtherProps) => {
-  // const userName = localStorage.getItem("userName") ?? "Jack";
+  const userName = localStorage.getItem("userName") ?? "Lily";
   const formik = useFormik({
     initialValues: {
       start_date: new Date("2022-03-01"),
       end_date: new Date("2022-03-30"),
       title: "",
       description: "",
-      owner: "Jack",
+      owner: userName,
       approved: false,
     },
     validationSchema: BookingValidation,

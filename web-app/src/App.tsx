@@ -48,7 +48,7 @@ const convertToCalendarEvents = (events: ApiCalendarEvent[]) => {
 function App() {
   const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
   const token = localStorage.getItem("token");
-  const view = token ? "home" : "calendar";
+  const view = token ? "calendar" : "home";
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL!}/readBookings`, {
@@ -67,7 +67,7 @@ function App() {
   return (
     <>
       <ModalProvider>
-        <NavBar view={"home"} />
+        <NavBar view={view} />
         <HomePage view={view} />
         {token && (
           <>

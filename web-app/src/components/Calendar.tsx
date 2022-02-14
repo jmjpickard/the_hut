@@ -3,6 +3,7 @@ import moment from "moment";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import { CalendarEvent } from "../App";
+import { Event } from "./Event";
 
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -13,28 +14,28 @@ const localizer = momentLocalizer(moment);
 const barColor = {
   Jack: {
     background: "#8BBBCC",
-    border: "thin solid #1A7B9F",
-    text: "#1A7B9F",
+    border: "thin solid #8BBBCC",
+    text: "#FFFFFF",
   },
   Charlie: {
     background: "#DBCE6D",
-    border: "thin solid #836B00",
-    text: "#836B00",
+    border: "thin solid #DBCE6D",
+    text: "#FFFFFF",
   },
   Lily: {
     background: "#FE0BB4",
-    border: "thin solid #FFA6E4",
-    text: "#FFA6E4",
+    border: "thin solid #FE0BB4",
+    text: "#FFFFFF",
   },
   "M & D": {
     background: "#FE7D7D",
-    border: "thin solid #FE0B0B",
-    text: "#FE0B0B",
+    border: "thin solid #FE7D7D",
+    text: "#FFFFFF",
   },
   Other: {
     background: "blue",
     border: "thin solid red",
-    text: "#3082A0",
+    text: "#FFFFFF",
   },
 };
 
@@ -50,7 +51,7 @@ export const CalendarCard = ({ events }: eventsProps) => {
         width: "70vw",
         margin: "auto",
         opacity: 0.92,
-        marginTop: "5vh",
+        marginTop: "0vh",
       }}
     >
       <Card>
@@ -65,6 +66,9 @@ export const CalendarCard = ({ events }: eventsProps) => {
             width: "70vw",
             padding: "25px",
             margin: "auto",
+          }}
+          components={{
+            event: Event,
           }}
           eventPropGetter={(event) => {
             let newStyle = {

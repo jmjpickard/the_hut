@@ -20,7 +20,7 @@ const calendarView = {
 };
 
 export const HomePage = ({ view }: ViewProps) => {
-  const pictures = view === "calendar" ? fullShow : calendarView;
+  const pictures = view === "home" ? fullShow : calendarView;
   return (
     <BackgroundSlider
       images={pictures.images}
