@@ -21,7 +21,7 @@ export interface CalendarEvent {
   approved: boolean;
 }
 
-interface ApiCalendarEvent {
+export interface ApiCalendarEvent {
   start_date: Date;
   end_date: Date;
   title: string;
