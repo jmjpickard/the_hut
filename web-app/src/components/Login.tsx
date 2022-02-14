@@ -55,6 +55,10 @@ const styles = {
 
 const userLookup = {
   "jack.pickard@hotmail.com": "Jack",
+  "lilygpickard@gmail.com": "Lily",
+  "cejpickard@hotmail.com": "Charlie",
+  "pickards26@hotmail.com": "M & D",
+  "edpickard2004@yahoo.co.uk": "M & D",
 };
 
 // Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
