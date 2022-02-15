@@ -45,7 +45,7 @@ async def root():
     return {"message": "pong"}
 
 
-@app.post("/createBooking/", response_model=schemas.BookingBase)
+@app.post("/createBooking", response_model=schemas.BookingBase)
 async def create_user(booking: schemas.BookingCreate, db: Session = Depends(get_db)):
     logger.info({"message": f"creating booking {booking}"})
     return crud.create_booking(db=db, booking=booking)
