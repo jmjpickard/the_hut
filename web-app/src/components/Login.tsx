@@ -57,7 +57,7 @@ const userLookup = {
   "jack.pickard@hotmail.com": "Jack",
   "lilygpickard@gmail.com": "Lily",
   "cejpickard@gmail.com": "Charlie",
-  "pickards26@hotmail.com": "M & D",
+  "pickards26@hotmail.co.uk": "M & D",
   "edpickard2004@yahoo.co.uk": "M & D",
 };
 
