@@ -5,7 +5,7 @@ import image5 from "../images/image5.jpg";
 import image6 from "../images/image6.jpg";
 import image8 from "../images/image8.jpg";
 
-import { ViewProps } from "../App";
+import { ViewProps } from "../pages/MainPage";
 
 const fullShow = {
   images: [image5, image4, image2, image8, image6],

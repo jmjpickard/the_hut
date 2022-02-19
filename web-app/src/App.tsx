@@ -1,14 +1,9 @@
-// import { useState } from "react";
 import { useState, useEffect } from "react";
-import { NavBar } from "./components/NavBar";
-import { HomePage } from "./components/HomePage";
-import { CalendarCard } from "./components/Calendar";
-import { BottomBar } from "./components/BottomBar";
+import "./App.css";
+import { MainPage } from "./pages/MainPage";
+import { BookingPage } from "./pages/BookingPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ModalProvider from "mui-modal-provider";
-
-export interface ViewProps {
-  view: string;
-}
 
 export interface CalendarEvent {
   allDay?: boolean | undefined;
@@ -47,8 +42,6 @@ const convertToCalendarEvents = (events: ApiCalendarEvent[]) => {
 
 function App() {
   const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-  const token = localStorage.getItem("token");
-  const view = token ? "calendar" : "home";
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL!}/readBookings`, {
@@ -64,19 +57,16 @@ function App() {
         setEvents(events);
       });
   }, []);
+
   return (
-    <>
+    <BrowserRouter>
       <ModalProvider>
-        <NavBar view={view} />
-        <HomePage view={view} />
-        {token && (
-          <>
-            <CalendarCard events={events} />
-            <BottomBar />
-          </>
-        )}
+        <Routes>
+          <Route path="/" element={<MainPage events={events} />} />
+          <Route path="/bookings" element={<BookingPage />} />
+        </Routes>
       </ModalProvider>
-    </>
+    </BrowserRouter>
   );
 }
 

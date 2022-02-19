@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { useModal } from "mui-modal-provider";
 import { UserMenu } from "./UserMenu";
 import { SignInModal } from "./SignIn";
-import { ViewProps } from "../App";
+import { ViewProps } from "../pages/MainPage";
 
 const styles = {
   buttonColor: {
@@ -25,9 +25,7 @@ const styles = {
   },
   navText: {
     color: "#6AAEB2",
-    fontSize: 100,
     fontFamily: "Gill Sans",
-    letterSpacing: 45,
     cursor: "pointer",
   },
   signInButton: {
@@ -53,8 +51,12 @@ const styles = {
   },
 };
 
-export const NavBar = ({ view }: ViewProps) => {
+export const NavBar = ({ view, width }: ViewProps) => {
   const { showModal } = useModal();
+  const navTextSize =
+    width > 700
+      ? { fontSize: 100, letterSpacing: 45 }
+      : { fontSize: 50, letterSpacing: 20 };
 
   useEffect(() => {
     WebFont.load({
@@ -72,7 +74,7 @@ export const NavBar = ({ view }: ViewProps) => {
         justifyContent: "center",
       }}
     >
-      <span style={styles.navText}>THE HUT</span>
+      <span style={{ ...styles.navText, ...navTextSize }}>THE HUT</span>
       {view === "home" ? (
         <Button
           variant="outlined"
