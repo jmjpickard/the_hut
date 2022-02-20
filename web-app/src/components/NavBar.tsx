@@ -54,7 +54,7 @@ const styles = {
 export const NavBar = ({ view, width }: ViewProps) => {
   const { showModal } = useModal();
   const navTextSize =
-    width > 700
+    width > 850
       ? { fontSize: 100, letterSpacing: 45 }
       : { fontSize: 50, letterSpacing: 20 };
 
@@ -94,7 +94,7 @@ export const NavBar = ({ view, width }: ViewProps) => {
           Enter
         </Button>
       ) : (
-        <UserMenu />
+        <UserMenu width={width} />
       )}
     </Box>
   );

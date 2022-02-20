@@ -14,7 +14,7 @@ const fullShow = {
 };
 
 const calendarView = {
-  images: [image5],
+  images: [image8],
   duration: 100000,
   transition: 2,
 };

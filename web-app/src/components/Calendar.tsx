@@ -41,17 +41,19 @@ const barColor = {
 
 interface eventsProps {
   events: CalendarEvent[] | undefined;
+  width: number;
 }
 
-export const CalendarCard = ({ events }: eventsProps) => {
-  console.log(events);
+export const CalendarCard = ({ events, width }: eventsProps) => {
+  const calendarWidth = width < 850 ? "95vw" : "70vw";
+  const calendarMargin = width < 850 ? "10vh" : "0vh";
   return (
     <Box
       sx={{
-        width: "70vw",
+        width: calendarWidth,
         margin: "auto",
         opacity: 0.92,
-        marginTop: "0vh",
+        marginTop: calendarMargin,
       }}
     >
       <Card>
@@ -63,7 +65,7 @@ export const CalendarCard = ({ events }: eventsProps) => {
           views={["month"]}
           style={{
             height: 500,
-            width: "70vw",
+            width: calendarWidth,
             padding: "25px",
             margin: "auto",
           }}

@@ -10,7 +10,12 @@ import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 
-export const UserMenu = () => {
+interface userMenuProps {
+  width: number;
+}
+
+export const UserMenu = ({ width }: userMenuProps) => {
+  const hidden = width < 850 ? "none" : "inline";
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
@@ -20,7 +25,9 @@ export const UserMenu = () => {
     setAnchorEl(null);
   };
   return (
-    <div style={{ position: "absolute", right: "5%", top: "5%" }}>
+    <div
+      style={{ position: "absolute", right: "5%", top: "5%", display: hidden }}
+    >
       <Box>
         <Tooltip title="Account settings">
           <IconButton

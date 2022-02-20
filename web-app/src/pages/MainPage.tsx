@@ -26,7 +26,7 @@ export const MainPage = ({ events }: MainProps) => {
       <HomePage view={view} width={width} />
       {token && (
         <>
-          <CalendarCard events={events} />
+          <CalendarCard events={events} width={width} />
           <BottomBar />
         </>
       )}
