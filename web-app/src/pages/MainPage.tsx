@@ -27,7 +27,7 @@ export const MainPage = ({ events }: MainProps) => {
       {token && (
         <>
           <CalendarCard events={events} width={width} />
-          <BottomBar />
+          <BottomBar width={width} />
         </>
       )}
     </>

@@ -79,9 +79,12 @@ export const CalendarCard = ({ events, width }: eventsProps) => {
               color: "white",
               fontFamily: "Gill Sans",
             };
-            newStyle.backgroundColor = barColor[event.owner].background;
-            newStyle.border = barColor[event.owner].border;
-            newStyle.color = barColor[event.owner].text;
+            if (event) {
+              newStyle.backgroundColor = barColor[event.owner].background;
+              newStyle.border = barColor[event.owner].border;
+              newStyle.color = barColor[event.owner].text;
+            }
+
             return {
               className: "",
               style: newStyle,

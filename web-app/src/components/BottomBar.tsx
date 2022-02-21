@@ -2,7 +2,11 @@ import { useModal } from "mui-modal-provider";
 import { CreateBooking } from "./CreateBooking";
 import "../App.css";
 
-export const BottomBar = () => {
+interface BottomBarProps {
+  width: number;
+}
+
+export const BottomBar = ({ width }: BottomBarProps) => {
   const { showModal } = useModal();
 
   return (
