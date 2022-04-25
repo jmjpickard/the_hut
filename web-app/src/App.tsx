@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./App.css";
 import { MainPage } from "./pages/MainPage";
 import { BookingPage } from "./pages/BookingPage";
@@ -17,31 +16,6 @@ export interface CalendarEvent {
 }
 
 function App() {
-  // const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-
-  // useEffect(() => {
-  //   const accessToken = localStorage.getItem("token");
-
-  //   fetch(`${process.env.REACT_APP_API_URL!}/readBookings`, {
-  //     headers: {
-  //       authorization: accessToken ? `bearer ${accessToken}` : "na",
-  //     },
-  //   })
-  //     .then((res) => {
-  //       console.log("hello there");
-  //       if (res.status === 401) {
-  //         localStorage.removeItem("token");
-  //         window.location.reload();
-  //       }
-  //       console.log("hello");
-  //       return res.json();
-  //     })
-  //     .then((data: ApiCalendarEvent[]) => {
-  //       const events = convertToCalendarEvents(data);
-  //       setEvents(events);
-  //     });
-  // }, []);
-
   return (
     <BrowserRouter>
       <ModalProvider>
