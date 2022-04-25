@@ -1,9 +1,11 @@
 import json
+import urllib
 
-from ariadne import SchemaDirectiveVisitor
 from jose import jwt
 from six.moves.urllib.request import urlopen
+from fastapi import HTTPException, Header
 
+from src.logger import logger
 from src.config import get_config
 
 
@@ -13,17 +15,8 @@ class AuthError(Exception):
         self.status_code = status_code
 
 
-def get_token_auth_header(request):
+def get_token_auth_header(auth: str):
     """Obtains the Access Token from the Authorization Header"""
-    auth = request.headers.get("Authorization", None)
-    if not auth:
-        raise AuthError(
-            {
-                "code": "authorization_header_missing",
-                "description": "Authorization header is expected",
-            },
-            401,
-        )
 
     parts = auth.split()
 
@@ -52,62 +45,54 @@ def get_token_auth_header(request):
     return token
 
 
-def verify(request):
+def verify(authorisation: str):
+    if authorisation == "na":
+        return AuthError({"code": "failed_auth", "description": f"NA Token"}, 401)
+
     config = get_config()
-    token = get_token_auth_header(request)
-    issuer = f"{config['auth_domain']}/"
-    jsonurl = urlopen(f"{issuer}.well-known/jwks.json")
-    full_audience = f"https://{config['auth_audience']}"
-    jwks = json.loads(jsonurl.read())
-    unverified_header = jwt.get_unverified_header(token)
-    rsa_key = {}
-    for key in jwks["keys"]:
-        if key["kid"] == unverified_header["kid"]:
-            rsa_key = {
-                "kty": key["kty"],
-                "kid": key["kid"],
-                "use": key["use"],
-                "n": key["n"],
-                "e": key["e"],
-            }
-    if rsa_key:
-        try:
-            payload = jwt.decode(
-                token,
-                rsa_key,
-                algorithms="RS256",
-                audience=full_audience,
-                issuer=issuer,
-            )
-        except jwt.ExpiredSignatureError:
-            raise AuthError(
-                {"code": "token_expired", "description": "token is expired"}, 401
-            )
-        except Exception:
-            raise AuthError(
-                {
-                    "code": "invalid_header",
-                    "description": "Unable to parse authentication" " token.",
-                },
-                401,
-            )
-
-        return payload
-    raise AuthError(
-        {"code": "invalid_header", "description": "Unable to find appropriate key"}, 401
-    )
+    token = get_token_auth_header(authorisation)
+    with urllib.request.urlopen(
+        f"{config['auth_domain']}/.well-known/jwks.json"
+    ) as response:
+        jwks = json.loads(response.read())
+        unverified_header = jwt.get_unverified_header(token)
+        rsa_key = {}
+        for key in jwks["keys"]:
+            if key["kid"] == unverified_header["kid"]:
+                rsa_key = {
+                    "kty": key["kty"],
+                    "kid": key["kid"],
+                    "use": key["use"],
+                    "n": key["n"],
+                    "e": key["e"],
+                }
+        if rsa_key:
+            try:
+                return jwt.decode(
+                    token,
+                    rsa_key,
+                    algorithms="RS256",
+                    audience=f"{config['auth_audience']}/",
+                    issuer=f"{config['auth_domain']}/",
+                )
+            except jwt.ExpiredSignatureError:
+                return AuthError(
+                    {"code": "token_expired", "description": "token is expired"}, 401
+                )
+            except Exception as err:
+                return AuthError(
+                    {
+                        "code": "failed_auth",
+                        "description": f"Unable to verify token: {str(err)}",
+                    },
+                    401,
+                )
 
 
-class IsAuthenticatedDirective(SchemaDirectiveVisitor):
-    def visit_field_definition(self, field, object_type):
-        original_resolver = field.resolve
+async def optional_verify_token(authorization: str = Header(...)):
+    logger.info(f"Started optional_verify_token")
+    payload = verify(authorization)
 
-        def resolve_is_authenticated(obj, info, **kwargs):
-            user = info.context.get("user")
-            if user is None:
-                raise Exception("Unauthorized user")
-            result = original_resolver(obj, info, **kwargs)
-            return result
-
-        field.resolve = resolve_is_authenticated
-        return field
+    logger.info(f"User verify token endpoint reached: {str(payload)}")
+    # return "hello"
+    return {"logged_in": not isinstance(payload, AuthError)}

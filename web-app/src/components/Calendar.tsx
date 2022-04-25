@@ -46,7 +46,7 @@ interface eventsProps {
 
 export const CalendarCard = ({ events, width }: eventsProps) => {
   const calendarWidth = width < 850 ? "95vw" : "70vw";
-  const calendarMargin = width < 850 ? "10vh" : "0vh";
+  const calendarMargin = width < 850 ? "5vh" : "0vh";
   return (
     <Box
       sx={{
@@ -64,7 +64,7 @@ export const CalendarCard = ({ events, width }: eventsProps) => {
           endAccessor="end"
           views={["month"]}
           style={{
-            height: 500,
+            height: "68vh",
             width: calendarWidth,
             padding: "25px",
             margin: "auto",

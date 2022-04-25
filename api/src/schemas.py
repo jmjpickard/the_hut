@@ -21,3 +21,7 @@ class BookingCreate(BookingBase):
 class LoginBody(BaseModel):
     email: str
     password: str
+
+
+class LoggedInBody(BaseModel):
+    logged_in: bool
