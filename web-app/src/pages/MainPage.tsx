@@ -8,7 +8,7 @@ import { useWindowSize } from "../hooks/window";
 import { getBookings } from "../http/bookings";
 
 export interface ViewProps {
-  view: string;
+  view: "home" | "calendar";
   width: number;
 }
 
