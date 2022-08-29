@@ -10,6 +10,8 @@ pydantic = "*"
 sqlalchemy = "*"
 psycopg2 = "*"
 python-jose = "*"
+uvicorn = "*"
+fastapi = "*"
 
 [dev-packages]
 bandit = "==1.7.0"
