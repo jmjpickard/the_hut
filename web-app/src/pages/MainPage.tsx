@@ -51,8 +51,9 @@ export const MainPage = () => {
 
   return (
     <>
-      <NavBar view={view} width={width} />
       <HomePage view={view} width={width} />
+      <NavBar view={view} width={width} />
+
       {token && (
         <>
           <CalendarCard events={events} width={width} />

@@ -8,6 +8,7 @@ import image8 from "../images/image8.jpg";
 import styles from "./styles.module.scss";
 
 import { ViewProps } from "../pages/MainPage";
+import { NavBar } from "./NavBar";
 
 const images = [image5, image4, image2, image8, image6];
 // const calendarImage = [image8];
@@ -25,6 +26,7 @@ export const HomePage = ({ view }: ViewProps) => {
   return (
     <div className={styles.homePage}>
       <img src={screenImg} alt="homePageImage" />
+      <NavBar view={"home"} width={0} />
     </div>
   );
 };

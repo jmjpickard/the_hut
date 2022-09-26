@@ -1,3 +1,9 @@
+import { NewCalendar } from "../components/NewCalendar/newCalendar";
+
 export const BookingPage = () => {
-  return <div>Hello</div>;
+  return (
+    <div>
+      <NewCalendar />
+    </div>
+  );
 };

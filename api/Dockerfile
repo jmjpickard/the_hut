@@ -19,4 +19,4 @@ COPY ./src ./src
 
 ENV PATH="/app/.venv/bin:$PATH" 
 
-CMD uvicorn src.main:app --host=0.0.0.0 --port=${PORT:-5000}
+CMD uvicorn src.main:app --host=0.0.0.0 --port=${PORT:-5001}
