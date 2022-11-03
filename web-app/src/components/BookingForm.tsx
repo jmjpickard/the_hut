@@ -10,7 +10,7 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import Box from "@mui/material/Box";
 // Shape of form values
-interface FormValues {
+export interface Booking {
   start_date: Date;
   end_date: Date;
   title: string;
@@ -73,7 +73,7 @@ const InnerForm = (props: OtherProps) => {
     },
     validationSchema: BookingValidation,
 
-    onSubmit: (values: FormValues) => {
+    onSubmit: (values: Booking) => {
       return fetch(`${process.env.REACT_APP_API_URL!}/createBooking`, {
         method: "POST",
         body: JSON.stringify(values),

@@ -3,8 +3,6 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import Box from "@mui/material/Box";
 // Shape of form values
 interface FormValues {
@@ -27,6 +25,9 @@ const styles = {
   error: {
     fontSize: 14,
     color: "red",
+  },
+  inputMain: {
+    backgroundColor: "white",
   },
   button: {
     backgroundColor: "#6AAEB2",
@@ -95,27 +96,42 @@ const InnerForm = (props: OtherProps) => {
   return (
     <form onSubmit={formik.handleSubmit} style={styles.form}>
       <h1 style={styles.header}>{message}</h1>
-      <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-        <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "flex-end",
+          backgroundColor: "white",
+          borderRadius: "6px",
+          fontSize: "20px",
+        }}
+      >
         <TextField
           fullWidth
           id="email"
           name="email"
           label="Email"
+          variant="outlined"
           value={formik.values.email}
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
       </Box>
-      <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-        <VpnKeyIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "flex-end",
+          backgroundColor: "white",
+          borderRadius: "6px",
+        }}
+      >
         <TextField
           fullWidth
           id="password"
           name="password"
           label="Password"
           type="password"
+          variant="outlined"
           value={formik.values.password}
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}

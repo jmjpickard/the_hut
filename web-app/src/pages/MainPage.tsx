@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { NavBar } from "../components/NavBar";
-import { HomePage } from "../components/HomePage";
-import { CalendarCard } from "../components/Calendar";
-import { BottomBar } from "../components/BottomBar";
 import { CalendarEvent } from "../App";
 import { useWindowSize } from "../hooks/window";
 import { getBookings } from "../http/bookings";
+import styles from "../components/styles.module.scss";
+import { NewCalendar } from "../components/NewCalendar/newCalendar";
+import { UpcomingEvents } from "../components/UpcomingEvents";
+import { Login } from "../components/Login";
 
 export interface ViewProps {
   view: "home" | "calendar";
@@ -39,9 +40,9 @@ const convertToCalendarEvents = (events: ApiCalendarEvent[]) => {
 export const MainPage = () => {
   const [events, setEvents] = useState<CalendarEvent[] | undefined>();
   const token = localStorage.getItem("token");
-  const view = token ? "calendar" : "home";
+  const view = token ? "calendar" : "calendar";
   const [width] = useWindowSize();
-
+  console.log({ events });
   useEffect(() => {
     getBookings().then((res: ApiCalendarEvent[]) => {
       const eventData = convertToCalendarEvents(res);
@@ -50,16 +51,18 @@ export const MainPage = () => {
   }, []);
 
   return (
-    <>
-      <HomePage view={view} width={width} />
+    <div className={styles.container}>
       <NavBar view={view} width={width} />
-
-      {token && (
-        <>
-          <CalendarCard events={events} width={width} />
-          <BottomBar width={width} />
-        </>
+      {token ? (
+        <div className={styles.card}>
+          <div className={styles.calendar}>
+            <NewCalendar />
+          </div>
+          <UpcomingEvents />
+        </div>
+      ) : (
+        <Login message="" />
       )}
-    </>
+    </div>
   );
 };

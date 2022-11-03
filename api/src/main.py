@@ -38,9 +38,9 @@ app.add_middleware(
 )
 
 
-@app.get("/")
+@app.get("/") 
 async def root():
-    logger.info("app runnning")
+    logger.info("app running")
     return {"message": "pong"}
 
 
@@ -103,8 +103,8 @@ async def resolve_login(login: schemas.LoginBody):
     }
 
     url = f'{config["auth_domain"]}/oauth/token'
-    res = requests.post(url, headers=headers, data=data)
-
+    res = requests.post(url, data=data, headers=headers)
+    logger.info("THIS IS RES", res, url)
     json_response = res.json()
 
     if res.status_code == 200 and json_response["access_token"]:

@@ -1,16 +1,13 @@
 .calendar {
   display: flex;
   flex-direction: column;
-  padding: 15px;
-  border-radius: 15px;
 }
 
 .topDisplay {
   display: flex;
   flex-direction: row;
-  gap: 25px;
   justify-content: space-between;
-  color: #c5cbd3;
+  color: #6aaeb2;
   font-weight: bold;
 }
 
@@ -21,13 +18,15 @@
 }
 
 .arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   border-radius: 50%;
   color: white;
   background-color: #a9cbcd;
   width: 25px;
   height: 25px;
-  text-align: center;
   &:hover {
     background-color: #6aaeb2;
   }
@@ -40,7 +39,8 @@
 }
 
 .weekDay {
-  flex: 0 0 14.285%;
+  font-size: 13px;
+  flex: 0 0 14.2%;
   text-align: left;
   color: #c5cbd3;
 }
@@ -49,16 +49,41 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  border-left: thin solid #c5cbd3;
-  border-top: thin solid #c5cbd3;
+  border-left: thin solid #e5e8eb;
 }
 
 .day {
-  padding-left: 3px;
-  flex: 0 0 14.285%;
+  flex: 0 0 14%;
   text-align: left;
   height: 70px;
   color: #6aaeb2;
-  border-right: thin solid #c5cbd3;
-  border-bottom: thin solid #c5cbd3;
+  border-right: thin solid #e5e8eb;
+  border-bottom: thin solid #e5e8eb;
+}
+
+.topRow {
+  flex: 0 0 14%;
+  text-align: left;
+  height: 70px;
+  color: #6aaeb2;
+  border-right: thin solid #e5e8eb;
+  border-bottom: thin solid #e5e8eb;
+  border-top: thin solid #e5e8eb;
+}
+
+.dayContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.dayNumber {
+  padding-left: 3px;
+}
+
+.bookedDay {
+  height: 25%;
+  background-color: blue;
+  padding: 0;
+  margin-left: -1px;
 }

@@ -24,7 +24,7 @@ const styles = {
     fontSize: 20,
   },
   navText: {
-    color: "#6AAEB2",
+    color: "#FFFFFF",
     fontFamily: "Gill Sans",
     cursor: "pointer",
   },
@@ -75,27 +75,6 @@ export const NavBar = ({ view, width }: ViewProps) => {
       }}
     >
       <span style={{ ...styles.navText, ...navTextSize }}>THE HUT</span>
-      {view === "home" ? (
-        <Button
-          variant="outlined"
-          style={styles.signInButton}
-          onClick={() => {
-            const token = localStorage.getItem("token");
-            if (token) {
-              localStorage.removeItem("token");
-              localStorage.removeItem("idToken");
-              localStorage.removeItem("userName");
-              window.location.reload();
-            } else {
-              showModal(SignInModal, { title: "Login" });
-            }
-          }}
-        >
-          Enter
-        </Button>
-      ) : (
-        <UserMenu width={width} />
-      )}
     </Box>
   );
 };

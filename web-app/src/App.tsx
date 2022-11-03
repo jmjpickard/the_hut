@@ -1,14 +1,13 @@
 import "./App.css";
 import { MainPage } from "./pages/MainPage";
-import { BookingPage } from "./pages/BookingPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ModalProvider from "mui-modal-provider";
 
 export interface CalendarEvent {
-  allDay?: boolean | undefined;
-  title?: React.ReactNode | undefined;
-  start?: Date | undefined;
-  end?: Date | undefined;
+  allDay?: boolean;
+  title?: React.ReactNode;
+  start?: Date;
+  end?: Date;
   resource?: any;
   owner: "Jack" | "Charlie" | "Lily" | "M & D" | "Other";
   description: string;
@@ -21,7 +20,6 @@ function App() {
       <ModalProvider>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/bookings" element={<BookingPage />} />
         </Routes>
       </ModalProvider>
     </BrowserRouter>

@@ -1,10 +1,11 @@
 import moment from "moment";
 import { useState } from "react";
+import { Day } from "./day";
 import styles from "./newCalendar.module.scss";
 
 const weekDays = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
-interface daysProps {
+export interface daysProps {
   day: string;
   date: string;
   booked: boolean;
@@ -12,11 +13,11 @@ interface daysProps {
 }
 
 const buildDays = (dayDiff: number, firstMondayWeekOfMonth: moment.Moment) => {
-  let test: daysProps[] = [];
+  let days: daysProps[] = [];
   for (let x = 0; x <= dayDiff; x++) {
     const currentDate = moment(firstMondayWeekOfMonth).add(x, "days");
-    test = [
-      ...test,
+    days = [
+      ...days,
       {
         day: currentDate.format("DD"),
         date: currentDate.format("YYYY-MM-DD hh:mm"),
@@ -25,7 +26,7 @@ const buildDays = (dayDiff: number, firstMondayWeekOfMonth: moment.Moment) => {
       },
     ];
   }
-  return test;
+  return days;
 };
 
 export const NewCalendar: React.FC = () => {
@@ -91,7 +92,6 @@ export const NewCalendar: React.FC = () => {
           </div>
         </div>
       </div>
-
       <div className={styles.weekDaysContainer}>
         {weekDays.map((day) => (
           <div key={day} className={styles.weekDay}>
@@ -100,10 +100,8 @@ export const NewCalendar: React.FC = () => {
         ))}
       </div>
       <div className={styles.dayContainer}>
-        {days.map((day) => (
-          <div key={day.date} className={styles.day}>
-            {day.day}
-          </div>
+        {days.map((day, idx) => (
+          <Day day={day} topRow={idx < 7} />
         ))}
       </div>
     </div>
