@@ -59,6 +59,10 @@
   color: #6aaeb2;
   border-right: thin solid #e5e8eb;
   border-bottom: thin solid #e5e8eb;
+  &:hover {
+    background-color: #d9dbda;
+    color: white;
+  }
 }
 
 .topRow {
@@ -69,6 +73,10 @@
   border-right: thin solid #e5e8eb;
   border-bottom: thin solid #e5e8eb;
   border-top: thin solid #e5e8eb;
+  &:hover {
+    background-color: #d9dbda;
+    color: white;
+  }
 }
 
 .dayContent {

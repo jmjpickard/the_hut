@@ -21,6 +21,8 @@ const styles = {
     flexDirection: "column" as "column",
     padding: "25px",
     gap: "25px",
+    width: "400px",
+    margin: "auto",
   },
   error: {
     fontSize: 14,
@@ -30,8 +32,8 @@ const styles = {
     backgroundColor: "white",
   },
   button: {
-    backgroundColor: "#6AAEB2",
-    color: "white",
+    backgroundColor: "white",
+    color: "#6AAEB2",
     fontWeight: "bold" as "bold",
     height: "40px",
   },
@@ -142,7 +144,7 @@ const InnerForm = (props: OtherProps) => {
         Submit
       </Button>
       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-        <div style={{ fontSize: 12, color: "#6AAEB2" }}>
+        <div style={{ fontSize: 12, color: "white" }}>
           If you have forgotten your password, you are a numpty. But ask Jack.
         </div>
       </Box>

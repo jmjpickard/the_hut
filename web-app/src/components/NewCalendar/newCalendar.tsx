@@ -1,5 +1,6 @@
 import moment from "moment";
 import { useState } from "react";
+import { CalendarEvent } from "../../App";
 import { Day } from "./day";
 import styles from "./newCalendar.module.scss";
 
@@ -10,6 +11,10 @@ export interface daysProps {
   date: string;
   booked: boolean;
   bookedBy: string;
+}
+
+interface Props {
+  events?: CalendarEvent[];
 }
 
 const buildDays = (dayDiff: number, firstMondayWeekOfMonth: moment.Moment) => {
@@ -29,7 +34,7 @@ const buildDays = (dayDiff: number, firstMondayWeekOfMonth: moment.Moment) => {
   return days;
 };
 
-export const NewCalendar: React.FC = () => {
+export const NewCalendar: React.FC<Props> = ({ events }) => {
   const today = moment();
   const [date, setDate] = useState(today);
 
@@ -49,8 +54,11 @@ export const NewCalendar: React.FC = () => {
   const [days, setDays] = useState<daysProps[]>(
     buildDays(dayDiff, firstMondayWeekOfMonth)
   );
+  const [startSelected, setStartSelected] = useState<daysProps | undefined>();
+  const [endSelected, setEndSelected] = useState<daysProps | undefined>();
+  const [onStart, setOnStart] = useState(true);
 
-  const handleDateClick = (isForward: boolean) => {
+  const handleArrowClick = (isForward: boolean) => {
     const newDate = isForward
       ? date.add(1, "month")
       : date.subtract(1, "month");
@@ -69,6 +77,16 @@ export const NewCalendar: React.FC = () => {
     setDays(buildDays(diff, firstMonday));
   };
 
+  const handleDayClick = (day: daysProps) => {
+    if (onStart) {
+      setStartSelected(day);
+      setEndSelected(undefined);
+    } else {
+      setEndSelected(day);
+    }
+    setOnStart(!onStart);
+  };
+
   return (
     <div className={styles.calendar}>
       <div className={styles.topDisplay}>
@@ -76,7 +94,7 @@ export const NewCalendar: React.FC = () => {
         <div className={styles.arrowContainer}>
           <div
             onClick={() => {
-              handleDateClick(false);
+              handleArrowClick(false);
             }}
             className={styles.arrow}
           >
@@ -84,7 +102,7 @@ export const NewCalendar: React.FC = () => {
           </div>
           <div
             onClick={() => {
-              handleDateClick(true);
+              handleArrowClick(true);
             }}
             className={styles.arrow}
           >
@@ -101,7 +119,7 @@ export const NewCalendar: React.FC = () => {
       </div>
       <div className={styles.dayContainer}>
         {days.map((day, idx) => (
-          <Day day={day} topRow={idx < 7} />
+          <Day day={day} topRow={idx < 7} onClick={handleDayClick} />
         ))}
       </div>
     </div>

@@ -56,7 +56,7 @@ export const MainPage = () => {
       {token ? (
         <div className={styles.card}>
           <div className={styles.calendar}>
-            <NewCalendar />
+            <NewCalendar events={events} />
           </div>
           <UpcomingEvents />
         </div>
