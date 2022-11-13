@@ -56,8 +56,7 @@ export const NewCalendar: React.FC<Props> = ({ events }) => {
   const [days, setDays] = useState<daysProps[]>(
     buildDays(dayDiff, firstMondayWeekOfMonth)
   );
-  const [startSelected, setStartSelected] = useState<daysProps | undefined>();
-  const [endSelected, setEndSelected] = useState<daysProps | undefined>();
+
   const [onStart, setOnStart] = useState(true);
 
   const handleArrowClick = (isForward: boolean) => {
@@ -140,12 +139,6 @@ export const NewCalendar: React.FC<Props> = ({ events }) => {
       </div>
       <div className={styles.dayContainer}>
         {days.map((day, idx) => {
-          const booked =
-            onStart &&
-            startSelected?.date != undefined &&
-            new Date(startSelected.date) <= new Date(day.date) &&
-            endSelected?.date != undefined &&
-            new Date(endSelected.date) >= new Date(day.date);
           return <Day day={day} topRow={idx < 7} onClick={handleDayClick} />;
         })}
       </div>
