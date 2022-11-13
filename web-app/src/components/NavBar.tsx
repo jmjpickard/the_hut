@@ -2,10 +2,6 @@ import * as React from "react";
 import { useEffect } from "react";
 import WebFont from "webfontloader";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { useModal } from "mui-modal-provider";
-import { UserMenu } from "./UserMenu";
-import { SignInModal } from "./SignIn";
 import { ViewProps } from "../pages/MainPage";
 
 const styles = {
@@ -51,8 +47,7 @@ const styles = {
   },
 };
 
-export const NavBar = ({ view, width }: ViewProps) => {
-  const { showModal } = useModal();
+export const NavBar = ({ width }: ViewProps) => {
   const navTextSize =
     width > 850
       ? { fontSize: 100, letterSpacing: 45 }

@@ -57,7 +57,7 @@ export const MainPage = () => {
           <div className={styles.calendar}>
             <NewCalendar events={events} />
           </div>
-          <UpcomingEvents />
+          <UpcomingEvents events={events} />
         </div>
       ) : (
         <Login message="" />

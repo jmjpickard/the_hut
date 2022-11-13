@@ -21,11 +21,13 @@ export const UpcomingEvents: React.FC<Props> = ({ events }) => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>Upcoming bookings</div>
-      {events ? (
-        <Event title={"Example event"} />
-      ) : (
-        <div className={styles.nonEvent}>Nothing booked at the moment</div>
-      )}
+      <div className={styles.bookingsContent}>
+        {events ? (
+          events.map((event) => <Event title={event.owner} />)
+        ) : (
+          <div className={styles.nonEvent}>Nothing booked at the moment</div>
+        )}
+      </div>
     </div>
   );
 };
