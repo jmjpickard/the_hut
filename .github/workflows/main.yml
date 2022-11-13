@@ -54,7 +54,7 @@ jobs:
 
       - name: Build the project
         working-directory: ${{env.working-directory}}
-        run: npm run build
+        run: npm run serve
 
       - name: Build, Push and Release React App to Heroku. # Your custom step name
         uses: akhileshns/heroku-deploy@v3.12.12
