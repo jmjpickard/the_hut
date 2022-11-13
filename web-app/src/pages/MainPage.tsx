@@ -5,7 +5,7 @@ import { useWindowSize } from "../hooks/window";
 import { getBookings } from "../http/bookings";
 import styles from "../components/styles.module.scss";
 import { NewCalendar } from "../components/NewCalendar/newCalendar";
-import { UpcomingEvents } from "../components/UpcomingEvents";
+import { UpcomingEvents } from "../components/UpcomingEvents/UpcomingEvents";
 import { Login } from "../components/Login";
 
 export interface ViewProps {
@@ -42,7 +42,6 @@ export const MainPage = () => {
   const token = localStorage.getItem("token");
   const view = token ? "calendar" : "calendar";
   const [width] = useWindowSize();
-  console.log({ events });
   useEffect(() => {
     getBookings().then((res: ApiCalendarEvent[]) => {
       const eventData = convertToCalendarEvents(res);

@@ -59,6 +59,7 @@
   color: #6aaeb2;
   border-right: thin solid #e5e8eb;
   border-bottom: thin solid #e5e8eb;
+
   &:hover {
     background-color: #d9dbda;
     color: white;
@@ -75,6 +76,15 @@
   border-top: thin solid #e5e8eb;
   &:hover {
     background-color: #d9dbda;
+    color: white;
+  }
+}
+
+.selected {
+  background-color: #b0dbdd;
+  color: white;
+  &:hover {
+    background-color: #85acae;
     color: white;
   }
 }

@@ -1,3 +1,6 @@
+@use "src/styles/variables";
+@use "src/styles/mixins" as mixins;
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -31,16 +34,23 @@
 
 .card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 25px;
   min-height: 60vh;
   padding: 15px;
   background-color: white;
   border-radius: 20px;
   margin: auto;
-  min-width: 85vw;
+  min-width: 100vw;
+  @include mixins.breakpoint(variables.$sm) {
+    flex-direction: row;
+    min-width: 85vw;
+  }
 
   .calendar {
-    width: 60%;
+    width: 100%;
+    @include mixins.breakpoint(variables.$sm) {
+      width: 60%;
+    }
   }
 }

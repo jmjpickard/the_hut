@@ -1,0 +1,40 @@
+@use "src/styles/variables";
+@mixin breakpoint($size) {
+  @media (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin justify-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+@mixin page-title {
+  font-size: variables.$font-size-42;
+  line-height: 46px;
+  margin-top: 0px;
+  @include breakpoint(variables.$lg) {
+    font-size: variables.$font-size-62;
+    line-height: 64px;
+  }
+  @include breakpoint(variables.$xl) {
+    font-size: 70px;
+    line-height: 74px;
+  }
+  @include breakpoint(variables.$xxl) {
+    font-size: 78px;
+    line-height: 74px;
+  }
+  @media (max-width: variables.$xs-se) {
+    font-size: 32px;
+    line-height: 35px;
+  }
+}
+@mixin justify-center-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

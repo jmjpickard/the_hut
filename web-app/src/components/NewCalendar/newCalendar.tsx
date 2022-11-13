@@ -11,6 +11,7 @@ export interface daysProps {
   date: string;
   booked: boolean;
   bookedBy: string;
+  selected: boolean;
 }
 
 interface Props {
@@ -28,6 +29,7 @@ const buildDays = (dayDiff: number, firstMondayWeekOfMonth: moment.Moment) => {
         date: currentDate.format("YYYY-MM-DD hh:mm"),
         booked: false,
         bookedBy: "",
+        selected: false,
       },
     ];
   }
@@ -79,10 +81,29 @@ export const NewCalendar: React.FC<Props> = ({ events }) => {
 
   const handleDayClick = (day: daysProps) => {
     if (onStart) {
-      setStartSelected(day);
-      setEndSelected(undefined);
+      setDays(
+        days.map((d) => {
+          if (d.date === day.date) {
+            return { ...d, selected: true };
+          }
+          return { ...d, selected: false };
+        })
+      );
     } else {
-      setEndSelected(day);
+      const startDate = days.find((d) => d.selected);
+      setDays(
+        days.map((d) => {
+          const dDate = new Date(d.date);
+          const dayDate = new Date(day.date);
+          if (!startDate) {
+            return { ...d, selected: false };
+          }
+          if (dDate <= dayDate && dDate >= new Date(startDate.date)) {
+            return { ...d, selected: true };
+          }
+          return { ...d, selected: false };
+        })
+      );
     }
     setOnStart(!onStart);
   };
@@ -118,9 +139,15 @@ export const NewCalendar: React.FC<Props> = ({ events }) => {
         ))}
       </div>
       <div className={styles.dayContainer}>
-        {days.map((day, idx) => (
-          <Day day={day} topRow={idx < 7} onClick={handleDayClick} />
-        ))}
+        {days.map((day, idx) => {
+          const booked =
+            onStart &&
+            startSelected?.date != undefined &&
+            new Date(startSelected.date) <= new Date(day.date) &&
+            endSelected?.date != undefined &&
+            new Date(endSelected.date) >= new Date(day.date);
+          return <Day day={day} topRow={idx < 7} onClick={handleDayClick} />;
+        })}
       </div>
     </div>
   );

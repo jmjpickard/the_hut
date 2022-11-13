@@ -1,0 +1,31 @@
+@use "src/styles/variables";
+@use "src/styles/mixins" as mixins;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 6px;
+  width: 100%;
+  @include mixins.breakpoint(variables.$sm) {
+    width: 40%;
+  }
+
+  .title {
+    color: #6aaeb2;
+    border-bottom: 1pt solid #6aaeb2;
+    width: 100%;
+    font-size: 14pt;
+    font-weight: 500;
+    padding-bottom: 10px;
+  }
+}
+
+.nonEvent {
+  padding: 25px;
+  border-radius: 8px;
+  background-color: #d9dbda;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+}
